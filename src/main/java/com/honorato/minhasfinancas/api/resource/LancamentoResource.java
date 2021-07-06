@@ -24,17 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/lancamentos")
 public class LancamentoResource {
 
-    private LancamentoService service;
-
-    private UsuarioService usuarioService;
-
-    public LancamentoResource(LancamentoService service) {
-        this.service = service;
-    }
+    private final LancamentoService service;
+    private final UsuarioService usuarioService;
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody LancamentoDTO dto) {
@@ -81,7 +79,7 @@ public class LancamentoResource {
         lancamentoFiltro.setMes(mes);
         lancamentoFiltro.setAno(ano);
 
-        Optional<Usuario> usuario = usuarioService.buscaPorId(id);
+        Optional<Usuario> usuario = usuarioService.buscaPorId(idUsuario);
         if(usuario.isPresent()) {
             return ResponseEntity.badRequest().body("Não foi possível realizar a consulta. Usuário não encontrado para o Id informado.");
         } else {
