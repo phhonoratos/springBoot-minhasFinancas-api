@@ -3,6 +3,7 @@ package com.honorato.minhasfinancas.services.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.honorato.minhasfinancas.exceptions.RegraNegocioException;
 import com.honorato.minhasfinancas.model.entities.Lancamento;
@@ -90,6 +91,11 @@ public class LancamentoServiceImpl implements LancamentoService {
             throw new RegraNegocioException("Informe um Tipo de lançamento.");
         }
         
+    }
+
+    @Override
+    public Optional<Lancamento> buscaPorId(Long id) {
+        return repository.findById(id);
     }
     
 }
